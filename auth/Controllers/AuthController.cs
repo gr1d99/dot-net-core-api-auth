@@ -1,12 +1,11 @@
 using auth.Dto;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace auth.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController
+public class AuthController : ControllerBase
 {
     private ILogger<AuthController> _iLogger;
 
@@ -15,8 +14,16 @@ public class AuthController
         _iLogger = iLogger;
     }
 
+    [HttpPost]
     public async Task<ActionResult<UserDto>> Create([FromBody] CreateAuthDto data)
     {
-        return Ok();
+        var res = new UserDto()
+        {
+            Email = "",
+            Id = 1
+        };
+
+        return Ok(res);
     }
 }
+
