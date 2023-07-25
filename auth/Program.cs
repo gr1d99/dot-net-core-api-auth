@@ -1,4 +1,5 @@
 using auth.Data;
+using auth.Services.Auth;
 using auth.Services.Registration;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ builder.Services.AddRouting(opts => opts.LowercaseUrls = true);
 builder.Services.AddDbContext<AuthDataContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

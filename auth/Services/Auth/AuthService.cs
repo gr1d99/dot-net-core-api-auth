@@ -1,6 +1,7 @@
 using auth.Data;
 using auth.Dto;
 using auth.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace auth.Services.Auth;
 
@@ -12,11 +13,22 @@ public class AuthService : IAuthService
         _context = context;
     }
 
-    public async Task<AuthDto> Create(CreateAuthDto credentials)
+    public async Task<UserModel?> Create(CreateAuthDto credentials)
     {
-        return new AuthDto()
+        var user = await _context.Users.Where(u => u.Email == credentials.Email).FirstOrDefaultAsync();
+
+        if (user is null)
         {
-            JwtToken = "1"
-        };
+            return null;
+        }
+
+        var isCorrectPassword = BCrypt.Net.BCrypt.Verify(credentials.Password, user.PasswordHash);
+
+        if (isCorrectPassword is false)
+        {
+            return null;
+        }
+
+        return user;
     }
 }
