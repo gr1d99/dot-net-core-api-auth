@@ -1,4 +1,5 @@
 using auth.Data;
+using auth.Services.Registration;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(opts => opts.LowercaseUrls = true);
 builder.Services.AddDbContext<AuthDataContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
 var app = builder.Build();
 

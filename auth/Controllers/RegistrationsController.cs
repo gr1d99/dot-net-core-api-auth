@@ -1,5 +1,5 @@
 using auth.Dto;
-using auth.Models;
+using auth.Services.Registration;
 using Microsoft.AspNetCore.Mvc;
 
 namespace auth.Controllers;
@@ -8,28 +8,23 @@ namespace auth.Controllers;
 [Route("api/[controller]")]
 public class RegistrationsController : ControllerBase
 {
-    private static UserModel user = new UserModel();
+    private readonly IRegistrationService _service;
     private ILogger<RegistrationsController> _iLogger;
 
-    public RegistrationsController(ILogger<RegistrationsController> iLogger)
+    public RegistrationsController(ILogger<RegistrationsController> iLogger, IRegistrationService service)
     {
         _iLogger = iLogger;
+        _service = service;
     }
 
     [HttpPost]
     public async Task<ActionResult<UserDto>> Create([FromBody] CreateRegistrationDto data)
     {
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword(data.Password);
-
-        user.Email = data.Email;
-        user.PasswordHash = passwordHash;
-
-        var response = new UserDto()
+        var user = await _service.Create(data);
+        return Ok(new UserDto()
         {
             Id = user.Id,
-            Email = user.Email,
-        };
-
-        return Ok(response);
+            Email = user.Email
+        });
     }
 }
