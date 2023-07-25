@@ -21,10 +21,9 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="../auth/auth.csproj" />
-    </ItemGroup>
+
     <ItemGroup>
       <ProjectReference Include="..\auth\auth.csproj" />
     </ItemGroup>
+
 </Project>
