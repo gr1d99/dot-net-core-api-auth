@@ -40,7 +40,7 @@ public class AuthController : ControllerBase
         });
     }
 
-    private string CreateUserToken(UserModel user)
+    private string CreateUserToken(User user)
     {
         List<Claim> claims = new List<Claim>()
         {

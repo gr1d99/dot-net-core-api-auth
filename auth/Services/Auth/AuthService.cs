@@ -13,7 +13,7 @@ public class AuthService : IAuthService
         _context = context;
     }
 
-    public async Task<UserModel?> Create(CreateAuthDto credentials)
+    public async Task<Models.User?> Create(CreateAuthDto credentials)
     {
         var user = await _context.Users.Where(u => u.Email == credentials.Email).FirstOrDefaultAsync();
 

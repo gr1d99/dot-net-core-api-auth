@@ -5,5 +5,5 @@ namespace auth.Services.Registration;
 
 public interface IRegistrationService
 {
-    public Task<UserModel> Create(CreateRegistrationDto data);
+    public Task<Models.User> Create(CreateRegistrationDto data);
 }

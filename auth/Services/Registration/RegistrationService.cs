@@ -13,10 +13,10 @@ public class RegistrationService : IRegistrationService
         _context = context;
     }
 
-    public async Task<UserModel> Create(CreateRegistrationDto data)
+    public async Task<Models.User> Create(CreateRegistrationDto data)
     {
         var passwordHash = BCrypt.Net.BCrypt.HashPassword(data.Password);
-        var user = new UserModel()
+        var user = new Models.User()
         {
             Email = data.Email,
             PasswordHash = passwordHash

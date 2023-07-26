@@ -5,5 +5,5 @@ namespace auth.Services.Auth;
 
 public interface IAuthService
 {
-    public Task<UserModel?> Create(CreateAuthDto credentials);
+    public Task<Models.User?> Create(CreateAuthDto credentials);
 }
